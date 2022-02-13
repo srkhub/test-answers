@@ -1,0 +1,21 @@
+---
+
+- hosts: all
+  become: yes
+
+  vars:
+    src_file: https://github.com/anfederico/flaskex.git
+    dest_file: /home/vagrant/flaskex
+
+  tasks:
+  - name: Install packages
+    apt: 
+      name:
+      - git
+      - python-pip
+
+  - name: Clone repository 
+    git: repo='{{ src_file }}' dest='{{ dest_file }}'
+
+  - name: Install requirements
+    pip: requirements='{{ dest_file }}/requirements.txt'
