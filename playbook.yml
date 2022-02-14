@@ -12,10 +12,15 @@
     apt: 
       name:
       - git
-      - python-pip
+      - python3-pip
+      state: present
+      update_cache: yes
 
   - name: Clone repository 
     git: repo='{{ src_file }}' dest='{{ dest_file }}'
 
   - name: Install requirements
     pip: requirements='{{ dest_file }}/requirements.txt'
+
+  - name: Start app
+    command: python3 {{ dest_file }}/app.py
